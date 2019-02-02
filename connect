@@ -1,0 +1,21 @@
+#!/bin/bash
+
+PARAM=$1
+if [ "$PARAM" != "" ]; then
+    ssh $PARAM
+else
+    echo -n "View list the hostname? [y/n] "
+    read list
+    if [ "$list" = "y" ]; then
+        grep -w "Host" ~/.ssh/config | sed 's/Host\s//'
+    fi
+    
+    echo -n "Please enter the hostname => "
+    read HOST
+    if [ "$HOST" != "" ]; then
+        ssh $HOST
+    else
+        echo "Hostname is empty!"
+        exit 0
+    fi
+fi
